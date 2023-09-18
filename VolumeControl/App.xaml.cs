@@ -162,7 +162,7 @@ namespace VolumeControl
             m_updateListener = new UpdateListener(this);
             m_updateSubject
                 .Synchronize()
-                .Throttle(TimeSpan.FromMilliseconds(10))
+                .Throttle(TimeSpan.FromMilliseconds(5))
                 .SubscribeOnDispatcher()
                 .Subscribe(m_updateListener);
 
@@ -178,11 +178,11 @@ namespace VolumeControl
             MasterVolumeListener masterVolumeListener = new MasterVolumeListener(this);
 
             m_coreAudioController.DefaultPlaybackDevice.VolumeChanged
-                                //.Throttle(TimeSpan.FromMilliseconds(10))
+                                //.Throttle(TimeSpan.FromMilliseconds(200))
                                 .Subscribe(masterVolumeListener);
 
             m_coreAudioController.DefaultPlaybackDevice.MuteChanged
-                                //.Throttle(TimeSpan.FromMilliseconds(10))
+                                //.Throttle(TimeSpan.FromMilliseconds(200))
                                 .Subscribe(masterVolumeListener);
 
             new Thread(() =>
@@ -246,6 +246,11 @@ namespace VolumeControl
         public void onClientConnect()
         {
             requestUpdate();
+        }
+
+        public void onClientUpdate()
+        {
+            
         }
 
         public void dispatchAudioState()
@@ -539,6 +544,7 @@ namespace VolumeControl
                     else
                     {
                         Console.WriteLine("Update complete!");
+                        
                     }
                 }
                 finally

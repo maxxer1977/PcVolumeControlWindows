@@ -30,9 +30,9 @@ namespace VolumeControl
             ipComboBox.ItemsSource = ips;
             ipComboBox.SelectedItem = ips[0]; // Initially listen on 0.0.0.0
 
-            updateConnectionStatus();
+            //updateConnectionStatus();
 
-            PcVolumeControlUtils.checkVersion();
+            //PcVolumeControlUtils.checkVersion();
         }
 
         private void DownloadLatest_RequestNavigate(object sender, RequestNavigateEventArgs e)
